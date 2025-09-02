@@ -1,13 +1,13 @@
 @echo off
-title Junk Eraser by 0x
+title JunkEraser by 0x🗑️
 color 0a
 
 echo ================================================
-echo       🚀 Junk Eraser by 0x 🚀
+echo         JunkEraser - Windows Cleaner by 0x
 echo ================================================
 echo.
 
-:: Run as Admin check
+:: Admin rights check
 net session >nul 2>&1
 if %errorLevel% neq 0 (
     echo ❌ Please run this script as Administrator!
@@ -15,29 +15,29 @@ if %errorLevel% neq 0 (
     exit
 )
 
-:: Folders list
-set folders=%temp% "C:\Windows\Temp" "C:\Windows\Prefetch" ^
-"%LocalAppData%\Microsoft\Windows\INetCache" ^
-"%LocalAppData%\Microsoft\Windows\History" ^
-"%LocalAppData%\Microsoft\Windows\Explorer" ^
-"%LocalAppData%\CrashDumps" ^
-"C:\Windows\SoftwareDistribution\Download"
-
-for %%i in (%folders%) do (
-    echo 🧹 Cleaning: %%i
-    if exist "%%i" (
+:: Folder list (har path alag-alag loop me hoga, no multiline issues)
+for %%i in (
+    "%temp%"
+    "C:\Windows\Temp"
+    "C:\Windows\Prefetch"
+    "C:\Users\%USERNAME%\AppData\Local\Microsoft\Windows\INetCache"
+    "C:\Users\%USERNAME%\AppData\Local\Microsoft\Windows\History"
+    "C:\Users\%USERNAME%\AppData\Local\Microsoft\Windows\Explorer"
+    "C:\Users\%USERNAME%\AppData\Local\CrashDumps"
+    "C:\Windows\SoftwareDistribution\Download"
+) do (
+    echo 🧹 Checking: %%i
+    if exist %%i (
+        echo 🚀 Deleting files inside %%i ...
         del /f /s /q "%%i\*.*" >nul 2>&1
-        rd /s /q "%%i" >nul 2>&1
-        mkdir "%%i" >nul 2>&1
         echo ✅ Done: %%i
     ) else (
-        echo ⚠️ Skip (not found): %%i
+        echo ⚠️ Folder not found: %%i
     )
+    echo.
 )
 
-echo.
 echo ================================================
-echo     🎉 0x Cleaning Completed Safely! 0x 🎉
+echo   🎉 0x Junk Cleaning Completed Successfully!
 echo ================================================
 pause
-exit
