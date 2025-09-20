@@ -42,3 +42,5 @@ A simple but powerful Windows cleanup script that safely removes junk files like
 
 ## 📝 License
 Free to use and modify 🔥
+
+Video >> https://youtu.be/lWj-AkugVR8
